@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "particleeraser.mixin",
+  "refmap": "particleeraser.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "ParticlesPacketMixin",
+    "ParticleEngineMixin",
+    "ParticleEngineAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

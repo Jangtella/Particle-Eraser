@@ -1,0 +1,58 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+}
+
+version = '1.0.1'
+group = 'particle_eraser'
+
+base {
+    archivesName = 'Particle-Eraser'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    copyIdeResources = true
+}
+
+mixin {
+    add sourceSets.main, 'particleeraser.refmap.json'
+    config 'particleeraser.mixins.json'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.23'
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('jar') {
+    archiveFileName = 'Particle-Eraser-1.0.1.jar'
+    manifest {
+        attributes([
+            'Specification-Title'     : 'particle_eraser',
+            'Specification-Vendor'    : '_jang',
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : 'Particle Eraser',
+            'Implementation-Version'  : '1.0.1',
+            'Implementation-Vendor'   : '_jang',
+            'MixinConfigs'            : 'particleeraser.mixins.json'
+        ])
+    }
+}
